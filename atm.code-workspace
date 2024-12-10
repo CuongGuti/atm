@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.autoSave": "off",
+		"prettier.singleQuote": true,
+		"prettier.jsxSingleQuote": true,
+		"javascript.format.enable": false,
+		"explorer.confirmDragAndDrop": false,
+		"vsicons.projectDetection.autoReload": true
+	}
+}

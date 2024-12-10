@@ -1,0 +1,50 @@
+{
+  "extends": [
+    "plugin:react/recommended",
+    "eslint:recommended",
+    "standard",
+    "prettier",
+    "expo"
+  ],
+  "env": {
+    "node": true,
+    "es2021": true,
+    "browser": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "plugins": [
+    "react",
+    "prettier",
+    "react-native"
+  ],
+  "rules": {
+    "indent": "off",
+    "camelcase": "off",
+    "comma-dangle": "off",
+    "react/prop-types": "off",
+    "no-useless-escape": "off",
+    "multiline-ternary": "off",
+    "import/no-unresolved": "off",
+    "template-curly-spacing": "off",
+    "import/no-absolute-path": "off",
+    "react/react-in-jsx-scope": "off",
+    "no-var": "error",
+    "react/self-closing-comp": "error",
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always"
+      }
+    ],
+    "no-console": [
+      "error",
+      {
+        "allow": ["warn", "error"]
+      }
+    ]
+  }
+}
