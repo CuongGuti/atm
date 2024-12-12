@@ -3,14 +3,18 @@
 import axios from 'axios'
 import * as R from 'ramda'
 
-import { TRUY_CAP_DS_ATM_BAT_DAU, TRUY_CAP_DS_ATM_THANH_CONG, TRUY_CAP_DS_ATM_THAT_BAI } from './constants'
+import {
+  TRUY_CAP_DS_NGAN_HANG_BAT_DAU,
+  TRUY_CAP_DS_NGAN_HANG_THANH_CONG,
+  TRUY_CAP_DS_NGAN_HANG_THAT_BAI,
+} from './constants'
 
 import { API_ATM } from '@/services/config'
 import { goiAPIThatBai, goiAPIThanhCong, chuyenClassThanhObjLoi } from '@/utils/common'
 
-export const truyCapDSATM = () => (dispatch) => {
+export const truyCapDSNganHang = () => (dispatch) => {
   dispatch({
-    type: TRUY_CAP_DS_ATM_BAT_DAU,
+    type: TRUY_CAP_DS_NGAN_HANG_BAT_DAU,
   })
 
   const promise = new Promise((resolve, reject) => {
@@ -18,7 +22,7 @@ export const truyCapDSATM = () => (dispatch) => {
       limit: 10,
       select: '*',
     }
-    const doRequest = axios.get('/v1/ds_atm', {
+    const doRequest = axios.get('/v1/ds_ngan_hang', {
       ...API_ATM,
       params,
     })
@@ -29,7 +33,7 @@ export const truyCapDSATM = () => (dispatch) => {
 
         dispatch({
           duLieu,
-          type: TRUY_CAP_DS_ATM_THANH_CONG,
+          type: TRUY_CAP_DS_NGAN_HANG_THANH_CONG,
         })
         goiAPIThanhCong(duLieu)
         resolve(duLieu)
@@ -44,7 +48,7 @@ export const truyCapDSATM = () => (dispatch) => {
   return promise.catch((loi) => {
     dispatch({
       loi: chuyenClassThanhObjLoi(loi),
-      type: TRUY_CAP_DS_ATM_THAT_BAI,
+      type: TRUY_CAP_DS_NGAN_HANG_THAT_BAI,
     })
     return loi
   })
@@ -52,30 +56,30 @@ export const truyCapDSATM = () => (dispatch) => {
 
 export const reducer = (state, action) => {
   switch (action.type) {
-    case TRUY_CAP_DS_ATM_BAT_DAU:
+    case TRUY_CAP_DS_NGAN_HANG_BAT_DAU:
       return {
         ...state,
-        dsATM: {
-          ...state.dsATM,
+        dsNganHang: {
+          ...state.dsNganHang,
           loi: null,
           dangXuLy: true,
         },
       }
 
-    case TRUY_CAP_DS_ATM_THANH_CONG:
+    case TRUY_CAP_DS_NGAN_HANG_THANH_CONG:
       return {
         ...state,
-        dsATM: {
+        dsNganHang: {
           duLieu: action.duLieu,
           loi: null,
           dangXuLy: false,
         },
       }
 
-    case TRUY_CAP_DS_ATM_THAT_BAI:
+    case TRUY_CAP_DS_NGAN_HANG_THAT_BAI:
       return {
         ...state,
-        dsATM: {
+        dsNganHang: {
           duLieu: [],
           loi: action.loi,
           dangXuLy: false,

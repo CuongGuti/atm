@@ -3,32 +3,33 @@ import * as R from 'ramda'
 import { Link } from 'expo-router'
 import { Provider } from 'react-redux'
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 
 import { store } from '@/store'
-import { truyCapDSATM } from '@/actions'
+import { truyCapDSNganHang } from '@/actions'
 import { ttStore } from '@/utils/common'
 
 const App = () => {
-  const { dispatch, dsATM } = ttStore(store)
+  const { dispatch, dsNganHang } = ttStore(store)
 
-  const duLieuDSATM = R.pathOr([], ['duLieu'])(dsATM)
+  const duLieuDSNganHang = R.pathOr([], ['duLieu'])(dsNganHang)
 
   useEffect(() => {
-    dispatch(truyCapDSATM())
+    dispatch(truyCapDSNganHang())
   }, [dispatch])
 
   return (
     <Provider store={store}>
-      <View style={styles.app}>
+      <View style={styles.trang}>
         <Text style={styles.tieuDe}>Chọn ngân hàng</Text>
-        {duLieuDSATM.map((atm, i) => {
-          const { ten } = atm || {}
+        {duLieuDSNganHang.map((ngan_hang, i) => {
+          const { ten_goi, logo } = ngan_hang || {}
 
           return (
-            <Text key={i} style={styles.tieuDe}>
-              {ten}
-            </Text>
+            <View key={i}>
+              <Image resizeMode="contain" source={{ uri: logo }} style={styles.hinh} />
+              <Text style={styles.tieuDe}>{ten_goi}</Text>
+            </View>
           )
         })}
         <Link href="/huong-dan" style={styles.nut}>
@@ -44,7 +45,7 @@ const App = () => {
 }
 
 const styles = StyleSheet.create({
-  app: {
+  trang: {
     flex: 1,
     backgroundColor: '#25292e',
     alignItems: 'center',
@@ -62,6 +63,10 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: '#FFF',
     marginBottom: 10,
+  },
+  hinh: {
+    width: 200,
+    height: 100,
   },
 })
 
