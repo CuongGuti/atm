@@ -1,4 +1,4 @@
-import { StyleSheet, Image, Platform } from 'react-native'
+import { StyleSheet, Image } from 'react-native'
 
 import IconSymbol from '@/components/IconSymbol'
 import ThemedText from '@/components/ThemedText'
