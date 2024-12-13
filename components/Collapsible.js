@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { StyleSheet, TouchableOpacity, useColorScheme } from 'react-native'
+import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
-import IconSymbol from '@/components/IconSymbol'
 import ThemedText from '@/components/ThemedText'
 import ThemedView from '@/components/ThemedView'
 import { Colors } from '@/constants'
@@ -13,8 +13,8 @@ const Collapsible = ({ children, title }) => {
   return (
     <ThemedView>
       <TouchableOpacity style={styles.heading} onPress={() => setIsOpen((value) => !value)} activeOpacity={0.8}>
-        <IconSymbol
-          name="chevron.right"
+        <MaterialIcons
+          name="arrow-forward-ios"
           size={18}
           weight="medium"
           color={theme === 'light' ? Colors.light.icon : Colors.dark.icon}

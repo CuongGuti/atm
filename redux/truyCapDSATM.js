@@ -8,7 +8,7 @@ import { TRUY_CAP_DS_ATM_BAT_DAU, TRUY_CAP_DS_ATM_THANH_CONG, TRUY_CAP_DS_ATM_TH
 import { API_ATM } from '@/services/config'
 import { goiAPIThatBai, goiAPIThanhCong, chuyenClassThanhObjLoi } from '@/utils/common'
 
-export const truyCapDSATM = () => (dispatch) => {
+export const truyCapDSATM = (id) => (dispatch) => {
   dispatch({
     type: TRUY_CAP_DS_ATM_BAT_DAU,
   })
@@ -18,7 +18,7 @@ export const truyCapDSATM = () => (dispatch) => {
       limit: 10,
       select: '*',
     }
-    const doRequest = axios.get('/v1/ds_atm', {
+    const doRequest = axios.get(`/v1/ds_atm?ma_ngan_hang=eq.${id}&order=ma_thanh_pho.asc&limit=5`, {
       ...API_ATM,
       params,
     })

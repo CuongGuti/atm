@@ -1,20 +1,23 @@
 import React, { useEffect } from 'react'
 import * as R from 'ramda'
-import { StatusBar } from 'expo-status-bar'
+import { useLocalSearchParams } from 'expo-router'
+import { useSelector } from 'react-redux'
 import { StyleSheet, Text, View } from 'react-native'
 
 import { store } from '@/store'
 import { truyCapDSATM } from '@/actions'
-import { ttStore } from '@/utils/common'
 
 const DSATM = () => {
-  const { dispatch, dsATM } = ttStore(store)
+  const { id } = useLocalSearchParams()
+  const atm = useSelector((state) => state?.atm)
+  const { dispatch } = store
+  const { dsATM } = atm
 
   const duLieuDSATM = R.pathOr([], ['duLieu'])(dsATM)
 
   useEffect(() => {
-    dispatch(truyCapDSATM())
-  }, [dispatch])
+    dispatch(truyCapDSATM(id))
+  }, [id, dispatch])
 
   return (
     <View style={styles.trang}>
@@ -28,7 +31,6 @@ const DSATM = () => {
           </Text>
         )
       })}
-      <StatusBar style="auto" />
     </View>
   )
 }
