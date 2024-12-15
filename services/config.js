@@ -2,7 +2,7 @@ const NODE_ENV = process.env.NODE_ENV
 const ASSET_HOST = process.env.ASSET_HOST || ''
 
 const danhSachMa = {
-  googleMapKey: 'ABC',
+  googleMapKey: 'AIzaSyDQrRAKoLYLOFTeedvoY883VoW-b2XLh7k',
 }
 
 const prefixHTTP = 'https://'

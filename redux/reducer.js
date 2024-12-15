@@ -1,8 +1,10 @@
 import initialState from './initialState'
+import { reducer as capNhatStateReducer } from './capNhatState'
 import { reducer as truyCapDSATMReducer } from './truyCapDSATM'
+import { reducer as truyCapChiDuongReducer } from './truyCapChiDuong'
 import { reducer as truyCapDSNganHangReducer } from './truyCapDSNganHang'
 
-const reducers = [truyCapDSATMReducer, truyCapDSNganHangReducer]
+const reducers = [capNhatStateReducer, truyCapDSATMReducer, truyCapChiDuongReducer, truyCapDSNganHangReducer]
 
 const reducer = (state = initialState, action) => {
   let newState

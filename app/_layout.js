@@ -1,10 +1,11 @@
 import 'react-native-reanimated'
+
 import { useEffect } from 'react'
 import { Stack } from 'expo-router'
 import { useFonts } from 'expo-font'
 import { Provider } from 'react-redux'
-import * as SplashScreen from 'expo-splash-screen'
 import { useColorScheme } from 'react-native'
+import * as SplashScreen from 'expo-splash-screen'
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 
 import { store } from '@/store'
@@ -32,9 +33,9 @@ const RootLayout = () => {
     <Provider store={store}>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="ds-atm" />
-          <Stack.Screen name="+not-found" />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false, title: 'Đổi ngân hàng' }} />
+          <Stack.Screen name="ds-atm" options={{ title: 'ATM' }} />
+          <Stack.Screen name="+not-found" options={{ title: 'Lỗi' }} />
         </Stack>
       </ThemeProvider>
     </Provider>

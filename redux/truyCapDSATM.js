@@ -8,47 +8,49 @@ import { TRUY_CAP_DS_ATM_BAT_DAU, TRUY_CAP_DS_ATM_THANH_CONG, TRUY_CAP_DS_ATM_TH
 import { API_ATM } from '@/services/config'
 import { goiAPIThatBai, goiAPIThanhCong, chuyenClassThanhObjLoi } from '@/utils/common'
 
-export const truyCapDSATM = (id) => (dispatch) => {
-  dispatch({
-    type: TRUY_CAP_DS_ATM_BAT_DAU,
-  })
-
-  const promise = new Promise((resolve, reject) => {
-    const params = {
-      limit: 10,
-      select: '*',
-    }
-    const doRequest = axios.get(`/v1/ds_atm?ma_ngan_hang=eq.${id}&order=ma_thanh_pho.asc&limit=5`, {
-      ...API_ATM,
-      params,
-    })
-
-    doRequest.then(
-      (ketQua) => {
-        const duLieu = R.pathOr(null, ['data'])(ketQua)
-
-        dispatch({
-          duLieu,
-          type: TRUY_CAP_DS_ATM_THANH_CONG,
-        })
-        goiAPIThanhCong(duLieu)
-        resolve(duLieu)
-      },
-      (loi) => {
-        goiAPIThatBai({ loi })
-        reject(loi)
-      }
-    )
-  })
-
-  return promise.catch((loi) => {
+export const truyCapDSATM =
+  ({ ma_ngan_hang, vi_do, kinh_do }) =>
+  (dispatch) => {
     dispatch({
-      loi: chuyenClassThanhObjLoi(loi),
-      type: TRUY_CAP_DS_ATM_THAT_BAI,
+      type: TRUY_CAP_DS_ATM_BAT_DAU,
     })
-    return loi
-  })
-}
+
+    const promise = new Promise((resolve, reject) => {
+      const params = {
+        order: 'ma_thanh_pho.desc',
+        ma_ngan_hang: `eq.${ma_ngan_hang}`,
+      }
+      const doRequest = axios.get('/v1/ds_atm', {
+        ...API_ATM,
+        params,
+      })
+
+      doRequest.then(
+        (ketQua) => {
+          const duLieu = R.pathOr(null, ['data'])(ketQua)
+
+          dispatch({
+            duLieu,
+            type: TRUY_CAP_DS_ATM_THANH_CONG,
+          })
+          goiAPIThanhCong(duLieu)
+          resolve(duLieu)
+        },
+        (loi) => {
+          goiAPIThatBai({ loi })
+          reject(loi)
+        }
+      )
+    })
+
+    return promise.catch((loi) => {
+      dispatch({
+        loi: chuyenClassThanhObjLoi(loi),
+        type: TRUY_CAP_DS_ATM_THAT_BAI,
+      })
+      return loi
+    })
+  }
 
 export const reducer = (state, action) => {
   switch (action.type) {
